@@ -1,29 +1,26 @@
 pipeline {
     agent any
-
-    // set up tools configured in Jenkins global config
+    
     tools {
-        maven 'mvn'           // name of Maven installation in Jenkins
+        // Replace with your Jenkins Global Tool name for Maven
+        maven 'Maven'
+        // Optionally specify JDK if not default
+        // jdk 'JDK11'
     }
 
     stages {
-
         stage('Checkout') {
             steps {
-                // checkout code from git (this Jenkinsfile should be in the repo)
-                git "https://github.com/rahultiple31/devops-dec-25/Jenkins.git"
+                // Jenkins automatically does checkout scm in declarative,
+                // but this explicit step works too
+                checkout scm
             }
         }
-
-        stage('Clean') {
-            steps {
-                sh 'mvn clean'
-            }
-        }
-
+        
         stage('Build') {
             steps {
-                sh 'mvn -B install'
+                // Maven build: clean package (include tests if needed)
+                sh 'mvn clean package'
             }
         }
 
@@ -31,6 +28,26 @@ pipeline {
             steps {
                 sh 'mvn test'
             }
+        }
+
+        stage('Post-Build') {
+            steps {
+                // Optional: list target folder
+                sh 'ls -l target'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Always archive build results
+            archiveArtifacts artifacts: 'target/**/*.jar', allowEmptyArchive: true
+        }
+        success {
+            echo 'Build succeeded'
+        }
+        failure {
+            echo 'Build failed'
         }
     }
 }
