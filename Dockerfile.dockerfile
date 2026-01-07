@@ -8,7 +8,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy JAR from Jenkins workspace
-COPY target/vaibhav-jenkins-pipeline.jar app.jar
+COPY target/vaibhav-jenkins-pipeline.jar vib-app.jar
 
 # Run app
-CMD ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "vibh-app.jar"]
