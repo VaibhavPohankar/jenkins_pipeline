@@ -5,7 +5,7 @@ package com.mycompany.app;
  */
 public class App {
 
-    private static final String MESSAGE = "Welcome to vaibhav's jenkin Pipeline";
+    private static final String MESSAGE = "Welcome to vaibhav's jenkin Pipeline with Docker";
 
     public App() {}
 
