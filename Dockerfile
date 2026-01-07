@@ -1,15 +1,9 @@
-FROM ubuntu:22.04
-
-# Install Java
-RUN apt-get update && \
-    apt-get install -y openjdk-11-jre && \
-    rm -rf /var/lib/apt/lists/*
+FROM eclipse-temurin:11-jre-alpine
 
 WORKDIR /app
 
-# Copy JAR from Jenkins workspace
-COPY target/vaibhav-jenkins-pipeline.jar vibh-app.jar
+COPY target/*.jar vibh_docker_app.jar
 
-# Run app
-CMD ["java", "-jar", "vibh-app.jar"]
+EXPOSE 9090
 
+ENTRYPOINT ["java","-XX:+UseContainerSupport","-jar","vibh_docker_app.jar"]
