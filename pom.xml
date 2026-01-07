@@ -27,7 +27,7 @@
   </dependencies>
 
   <build>
-    <finalName>vaibhav-jenkins-pipeline</finalName>
+    <finalName>Docker-vaibhav-jenkins-pipeline</finalName>
 
     <plugins>
       <plugin>
