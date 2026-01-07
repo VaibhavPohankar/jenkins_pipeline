@@ -32,9 +32,13 @@ pipeline {
 
 stage('Docker Run') {
     steps {
-        sh 'docker run -d --name my-app vaibhav/my-app:latest'
+        sh '''
+        docker rm -f my-app || true
+        docker run -d --name my-app vaibhav/my-app:latest
+        '''
     }
 }
+
 
 
         stage('Test') {
